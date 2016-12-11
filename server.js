@@ -68,22 +68,23 @@ var server = http.createServer(function(request, response) {
 
       request.on('end', function () {
         var params = JSON.parse(body);
-        console.log("params uuid: "+JSON.stringify(params[uuid]));
+
         console.log("params uuid alternate: "+JSON.stringify(params.uuid));
-        var uuId = JSON.stringify(params.uuid);
+        var uuId = params.uuid;
         console.log("web socket id post: "+JSON.stringify(clients[uuId]));
         console.log("Recived Params: "+JSON.stringify(params));
 
         console.log("web socket id post: "+JSON.stringify(clients[uuId]));
-        var accessToken = JSON.stringify(params.access_token);
+        var accessToken = params.access_token;
 
         var msg = {'op':'authdone','accessToken':accessToken};
         console.log("web socket id post message: "+JSON.stringify(msg));
-        if(clients[uuId] != undefined || clients[uuId] != null)
+        if(id != undefined || id != null)
         {
           console.log("Before "+Object.size(clients));
-          clients[uuId].send(JSON.stringify(msg),{mask:false});
-          delete clients[uuId];
+          //clients[uuId].send(JSON.stringify(msg),{mask:false});
+          id.send(JSON.stringify(msg),{mask:false});
+          //delete clients[uuId];
           console.log("After "+Object.size(clients));
 
           response.end('{"status":"OK"}');
