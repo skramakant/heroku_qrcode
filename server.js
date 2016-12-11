@@ -73,7 +73,7 @@ var server = http.createServer(function(request, response) {
         var accessToken = params.access_token;
 
         var msg = {'op':'authdone','accessToken':accessToken};
-        console.log("wen socket id in post:"+ clients[uuId]);
+        console.log("web socket id post: "+JSON.stringify(clients[uuId]));
         if(clients[uuId] != undefined || clients[uuId] != null)
         {
           console.log("Before "+Object.size(clients));
@@ -156,7 +156,7 @@ wss.on('connection', function connection(ws) {
     {
       var uuidToken = uuid.v1();
       clients[uuidToken] = ws;
-      console.log("wen socket id": clients[uuidToken]);
+      console.log("wen socket id+"+clients[uuidToken]);
       id = ws;
       var hello = { op:'hello',token:uuidToken};
       ws.send(JSON.stringify(hello),{mask:false});
