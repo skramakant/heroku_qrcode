@@ -68,9 +68,12 @@ var server = http.createServer(function(request, response) {
 
       request.on('end', function () {
         var params = JSON.parse(body);
+        console.log("params uuid: "+JSON.stringify(params[uuid]));
+        console.log("params uuid alternate: "+JSON.stringify(params.uuid));
+        var uuId = params.uuid;
         console.log("web socket id post: "+JSON.stringify(clients[uuId]));
         console.log("Recived Params: "+JSON.stringify(params));
-        var uuId = params.uuid;
+
         console.log("web socket id post: "+JSON.stringify(clients[uuId]));
         var accessToken = params.access_token;
 
