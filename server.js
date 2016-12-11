@@ -12,7 +12,7 @@ var fs = require("fs");
 var path = require("path");
 
 var ip = process.env.IP || '127.0.0.1'; //process.env.OPENSHIFT_NODEJS_IP ||
-var port1      = Number(process.env.PORT || 5000);//process.env.OPENSHIFT_NODEJS_PORT ||
+var port1 = process.env.PORT || 5000;//process.env.OPENSHIFT_NODEJS_PORT ||
 var port2      = 8081;
 
 var checkMimeType = true;
@@ -105,7 +105,7 @@ var server = http.createServer(function(request, response) {
     response.end("Exception");
   });
 
-}).listen(port1,ip);
+}).listen(port1);
 
 /**
 * getFile function implementation
