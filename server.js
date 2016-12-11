@@ -70,8 +70,8 @@ var server = http.createServer(function(request, response) {
       request.on('end', function () {
 
         //var params = (typeof body == "object" ? body : JSON.parse(body));
-        //var params = JSON.parse(body);
-        var params = jQuery.parseJSON(body)
+        var params = JSON.parse(body);
+        //var params = jQuery.parseJSON(body)
 
 
         console.log("params uuid alternate: "+JSON.stringify(params.uuid));
