@@ -26,6 +26,9 @@
                     var obj = JSON.parse(evt.data);
                     console.log("Receivied:" + JSON.stringify(obj));
 
+                    if(obj.op == 'ping'){
+                      console.log("### pinging periodically");
+                    }
                     if (obj.op == 'hello')
                     {
                         console.log("### Got hello token " + obj.token);

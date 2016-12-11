@@ -21,6 +21,11 @@ var checkMimeType = true;
 var server = http.createServer(function(request, response) {
 
   console.log("hello world server first line");
+  if(clients[uuId] != undefined || clients[uuId] != null)
+  {
+    var msg = {'op':'ping'};
+    clients[uuId].send(JSON.stringify(msg),{mask:false});
+  }
   if(request.method == "GET" ){
           var filename = request.url || "index.html";
           var ext = path.extname(filename);
