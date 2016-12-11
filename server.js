@@ -61,23 +61,23 @@ var server = http.createServer(function(request, response) {
     if(url == "/auth")
     {
       console.log("hello world after scanning");
-      var body = '';
+      var body = "";
       request.on('data', function(chunk)
       {
         body += chunk.toString();
       });
 
       request.on('end', function () {
-
+        console.log("Recived Params: without parsing "+body);
         //var params = (typeof body == "object" ? body : JSON.parse(body));
         var params = JSON.parse(body);
         //var params = jQuery.parseJSON(body)
 
-
+        console.log("Recived Params: "+JSON.stringify(params));
         console.log("params uuid alternate: "+JSON.stringify(params.uuid));
         var uuId = params.uuid;
         console.log("web socket id post: "+JSON.stringify(clients[uuId]));
-        console.log("Recived Params: "+JSON.stringify(params));
+
 
         console.log("web socket id post: "+JSON.stringify(clients[uuId]));
         var accessToken = params.access_token;
