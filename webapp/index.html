@@ -17,29 +17,31 @@
                     op: 'hello'
                 };
                 var heartbeat_interval = null, missed_heartbeats = 0;
-                if (heartbeat_interval === null) {
-                    missed_heartbeats = 0;
-                    heartbeat_interval = setInterval(function() {
-                    try {
-                            missed_heartbeats++;
-                            if (missed_heartbeats >= 30)
-                            throw new Error("Too many missed heartbeats.");
-                            ws.send(heartbeat_msg);
-                          } catch(e) {
-                              clearInterval(heartbeat_interval);
-                              heartbeat_interval = null;
-                              console.warn("Closing connection. Reason: " + e.message);
-                              ws.close();
-                            }
-                          }, 5000);
-                        }
-                /*ws.onopen = function() {
-                    var hello = {
+
+                ws.onopen = function() {
+                    /*var hello = {
                         op: 'hello'
                     };
-                    ws.send(JSON.stringify(hello));
+                    ws.send(JSON.stringify(hello));*/
 
-                };*/
+                    if (heartbeat_interval === null) {
+                        missed_heartbeats = 0;
+                        heartbeat_interval = setInterval(function() {
+                        try {
+                                missed_heartbeats++;
+                                if (missed_heartbeats >= 30)
+                                throw new Error("Too many missed heartbeats.");
+                                ws.send(heartbeat_msg);
+                              } catch(e) {
+                                  clearInterval(heartbeat_interval);
+                                  heartbeat_interval = null;
+                                  console.warn("Closing connection. Reason: " + e.message);
+                                  ws.close();
+                                }
+                              }, 5000);
+                            }
+
+                };
                 ws.onmessage = function(evt) {
 					          $("#qrcode").html("");
 
