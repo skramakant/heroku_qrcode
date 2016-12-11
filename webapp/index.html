@@ -45,7 +45,6 @@
 
                 };
                 ws.onmessage = function(evt) {
-					          $("#qrcode").html("");
 
                     var obj = JSON.parse(evt.data);
                     console.log("Receivied:" + JSON.stringify(obj));
@@ -55,6 +54,7 @@
                       console.log("### Got ping pong  " + obj.token);
                     }else if (obj.op == 'hello')
                     {
+                        $("#qrcode").html("");
                         console.log("### Got hello token " + obj.token);
 
                         //Generate QR Code and show to user.
@@ -65,6 +65,7 @@
                         });
                     } else if (obj.op == 'authdone')
                     {
+                        $("#qrcode").html("");
                         console.log("### Got auth token " + obj.accessToken);
                         ws.close();
                         $("#qrcode").hide();
