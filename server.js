@@ -70,24 +70,8 @@ var server = http.createServer(function(request, response) {
         console.log("Recived Params: without parsing "+body);
         //var params = (typeof body == "object" ? body : JSON.parse(body));
         var params = eval("(function(){return " + body + ";})()");
-        //var params = JSON.parse(body);
-        //var params = jQuery.parseJSON(body)
-        //var params = body;
-
-        //console.log("Recived Params:after parsing "+JSON.stringify(params));
-        //console.log("Recived Params: "+JSON.stringify(params));
-        //var usda= params.uuid;
-        //console.log("params uuid alternate: "+params2.uuid);
-        //console.log("Recived Params: "+ params.uuid);
-
         var uuId = params.uuid;
-        //console.log("web socket id post: "+JSON.stringify(clients[uuId]));
-        //alert(uuid);
-
-        //console.log("web socket id post: "+JSON.stringify(clients[uuId]));
         var accessToken = params.access_token;
-        //alert(accessToken);
-
         var msg = {'op':'authdone','accessToken':accessToken};
         console.log("web socket id post message: "+JSON.stringify(msg));
         if(clients[uuId] != undefined || clients[uuId] != null)
@@ -175,11 +159,12 @@ wss.on('connection', function connection(ws) {
       console.log("wen socket id+"+clients[uuidToken].toString());
       var hello = { op:'hello',token:uuidToken};
       ws.send(JSON.stringify(hello),{mask:false});
-    }/*else if(obj.op == 'ping'){
+    }
+    if(obj.op == 'ping'){
       console.log("ping ping");
       var ping = { op:'ping',token:uuidToken};
-      id.send(JSON.stringify(ping),{mask:false});
-    }*/
+      ws.send(JSON.stringify(ping),{mask:false});
+    }
 
   });
 
