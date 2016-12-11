@@ -69,15 +69,16 @@ var server = http.createServer(function(request, response) {
       request.on('end', function () {
         console.log("Recived Params: without parsing "+body);
         //var params = (typeof body == "object" ? body : JSON.parse(body));
-        var params = JSON.parse(body);
-        var params1 = jQuery.parseJSON(body)
+        //var params = JSON.parse(body);
+        var params = jQuery.parseJSON(body)
         var params2 = body;
 
-        console.log("Recived Params: "+JSON.stringify(params1));
+        console.log("Recived Params:after parsing "+JSON.stringify(params));
         //console.log("Recived Params: "+JSON.stringify(params));
-        var usda= params1.uuid;
-        console.log("Recived Params: "+ params1.uuid);
-        console.log("params uuid alternate: "+param2.uuid);
+        //var usda= params.uuid;
+        console.log("params uuid alternate: "+params2.uuid);
+        console.log("Recived Params: "+ params.uuid);
+        
         var uuId = params.uuid;
         //console.log("web socket id post: "+JSON.stringify(clients[uuId]));
 
