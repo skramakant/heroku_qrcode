@@ -25,7 +25,7 @@
                     };
                     ws.send(JSON.stringify(hello));
 
-                    if (heartbeat_interval === null) {
+                    /*if (heartbeat_interval === null) {
                         missed_heartbeats = 0;
                         heartbeat_interval = setInterval(function() {
                         try {
@@ -40,7 +40,7 @@
                                   ws.close();
                                 }
                               }, 5000);
-                            }
+                            }*/
 
                 };
                 ws.onmessage = function(evt) {
@@ -49,10 +49,10 @@
                     var obj = JSON.parse(evt.data);
                     console.log("Receivied:" + JSON.stringify(obj));
 
-                    if(obj.op == 'ping'){
+                    /*if(obj.op == 'ping'){
                       missed_heartbeats = 0;
                       console.log("### Got ping pong  " + obj.token);
-                    }
+                    }*/
 
                     if (obj.op == 'hello')
                     {
