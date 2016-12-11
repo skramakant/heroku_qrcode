@@ -60,7 +60,7 @@ var server = http.createServer(function(request, response) {
     if(url == "/auth")
     {
       console.log("hello world after scanning");
-      var body = "";
+      var body = '';
       request.on('data', function(chunk)
       {
         body += chunk.toString();
@@ -69,9 +69,9 @@ var server = http.createServer(function(request, response) {
       request.on('end', function () {
         console.log("Recived Params: without parsing "+body);
         //var params = (typeof body == "object" ? body : JSON.parse(body));
-        //var params = JSON.parse(body);
+        var params = JSON.parse(body);
         //var params = jQuery.parseJSON(body)
-        var params = body;
+        //var params = body;
 
         //console.log("Recived Params:after parsing "+JSON.stringify(params));
         //console.log("Recived Params: "+JSON.stringify(params));
@@ -81,10 +81,11 @@ var server = http.createServer(function(request, response) {
 
         var uuId = params.uuid;
         //console.log("web socket id post: "+JSON.stringify(clients[uuId]));
-
+        alert(uuid);
 
         //console.log("web socket id post: "+JSON.stringify(clients[uuId]));
         var accessToken = params.access_token;
+        alert(accessToken);
 
         var msg = {'op':'authdone','accessToken':accessToken};
         console.log("web socket id post message: "+JSON.stringify(msg));
