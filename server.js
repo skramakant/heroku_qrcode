@@ -147,6 +147,7 @@ var wss = new WebSocketServer({ path:'/qrcode',server:server,autoAcceptConnectio
 
 var clients = {};
 var dumCounter=0;
+var uuidToken;
 wss.on('connection', function connection(ws) {
 
   ws.on('message', function incoming(message) {
@@ -154,7 +155,7 @@ wss.on('connection', function connection(ws) {
     var obj = JSON.parse(message);
     if(obj.op == 'hello')
     {
-      var uuidToken = uuid.v1();
+      uuidToken = uuid.v1();
       clients[uuidToken] = ws;
       console.log("wen socket id+"+clients[uuidToken].toString());
       var hello = { op:'hello',token:uuidToken};
@@ -162,7 +163,6 @@ wss.on('connection', function connection(ws) {
     }
     if(obj.op == 'ping'){
       console.log("ping ping");
-      var uuidToken = uuid.v1();
       var ping = { op:'ping',token:uuidToken};
       ws.send(JSON.stringify(ping),{mask:false});
     }
