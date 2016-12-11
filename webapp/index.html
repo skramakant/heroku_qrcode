@@ -13,16 +13,17 @@
         function initiate() {
             if ("WebSocket" in window) {
                 var ws = new WebSocket("ws://whispering-plains-35483.herokuapp.com/qrcode");
+
                 var heartbeat_msg = {
-                    op: 'hello'
+                    op: 'ping'
                 };
                 var heartbeat_interval = null, missed_heartbeats = 0;
 
                 ws.onopen = function() {
-                    /*var hello = {
+                    var hello = {
                         op: 'hello'
                     };
-                    ws.send(JSON.stringify(hello));*/
+                    ws.send(JSON.stringify(hello));
 
                     if (heartbeat_interval === null) {
                         missed_heartbeats = 0;
@@ -48,11 +49,14 @@
                     var obj = JSON.parse(evt.data);
                     console.log("Receivied:" + JSON.stringify(obj));
 
+                    if(obj.op == 'ping'){
+                      missed_heartbeats = 0;
+                      console.log("### Got ping pong  " + obj.token);
+                    }
 
                     if (obj.op == 'hello')
                     {
                         console.log("### Got hello token " + obj.token);
-                        missed_heartbeats = 0;
 
                         //Generate QR Code and show to user.
                         $("#qrcode").qrcode({
