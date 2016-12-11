@@ -53,9 +53,7 @@
                     if(obj.op == 'ping'){
                       missed_heartbeats = 0;
                       console.log("### Got ping pong  " + obj.token);
-                    }
-
-                    if (obj.op == 'hello')
+                    }else if (obj.op == 'hello')
                     {
                         console.log("### Got hello token " + obj.token);
 

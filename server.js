@@ -162,6 +162,7 @@ wss.on('connection', function connection(ws) {
     }
     if(obj.op == 'ping'){
       console.log("ping ping");
+      var uuidToken = uuid.v1();
       var ping = { op:'ping',token:uuidToken};
       ws.send(JSON.stringify(ping),{mask:false});
     }
