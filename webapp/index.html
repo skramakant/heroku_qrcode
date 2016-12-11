@@ -12,7 +12,7 @@
 
         function initiate() {
             if ("WebSocket" in window) {
-                var ws = new WebSocket("ws://whispering-plains-35483.herokuapp.com/qrcode");
+                var ws = new WebSocket("ws://whispering-plains-35483.herokuapp.com:5000/qrcode");
                 ws.onopen = function() {
                     var hello = {
                         op: 'hello'
