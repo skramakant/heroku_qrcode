@@ -73,7 +73,7 @@ var server = http.createServer(function(request, response) {
         var accessToken = params.access_token;
 
         var msg = {'op':'authdone','accessToken':accessToken};
-        console.log("wen socket id in post": clients[uuId]);
+        console.log("wen socket id in post:"+ clients[uuId]);
         if(clients[uuId] != undefined || clients[uuId] != null)
         {
           console.log("Before "+Object.size(clients));
