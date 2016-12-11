@@ -24,12 +24,6 @@ var server = http.createServer(function(request, response) {
 
   if(request.method == "GET" ){
 
-    if(clients[uuId] != undefined || clients[uuId] != null)
-    {
-      var msg = {'op':'ping'};
-      clients[uuId].send(JSON.stringify(msg),{mask:false});
-    }
-
           var filename = request.url || "index.html";
           var ext = path.extname(filename);
           var localPath = __dirname;

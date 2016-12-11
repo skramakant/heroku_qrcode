@@ -13,26 +13,44 @@
         function initiate() {
             if ("WebSocket" in window) {
                 var ws = new WebSocket("ws://whispering-plains-35483.herokuapp.com/qrcode");
-                ws.onopen = function() {
+                var heartbeat_msg = {
+                    op: 'hello'
+                };
+                var heartbeat_interval = null, missed_heartbeats = 0;
+                if (heartbeat_interval === null) {
+                    missed_heartbeats = 0;
+                    heartbeat_interval = setInterval(function() {
+                    try {
+                            missed_heartbeats++;
+                            if (missed_heartbeats >= 30)
+                            throw new Error("Too many missed heartbeats.");
+                            ws.send(heartbeat_msg);
+                          } catch(e) {
+                              clearInterval(heartbeat_interval);
+                              heartbeat_interval = null;
+                              console.warn("Closing connection. Reason: " + e.message);
+                              ws.close();
+                            }
+                          }, 5000);
+                        }
+                /*ws.onopen = function() {
                     var hello = {
                         op: 'hello'
                     };
                     ws.send(JSON.stringify(hello));
 
-                };
+                };*/
                 ws.onmessage = function(evt) {
 					          $("#qrcode").html("");
 
                     var obj = JSON.parse(evt.data);
                     console.log("Receivied:" + JSON.stringify(obj));
 
-                    if(obj.op == 'ping'){
-                      console.log("### pinging periodically");
-                    }
+
                     if (obj.op == 'hello')
                     {
                         console.log("### Got hello token " + obj.token);
-
+                        missed_heartbeats = 0;
 
                         //Generate QR Code and show to user.
                         $("#qrcode").qrcode({
