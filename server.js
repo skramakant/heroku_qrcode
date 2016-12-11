@@ -78,7 +78,7 @@ var server = http.createServer(function(request, response) {
         var accessToken = JSON.stringify(params.access_token);
 
         var msg = {'op':'authdone','accessToken':accessToken};
-        console.log("web socket id post: "+JSON.stringify(clients[uuId]));
+        console.log("web socket id post message: "+JSON.stringify(msg));
         if(clients[uuId] != undefined || clients[uuId] != null)
         {
           console.log("Before "+Object.size(clients));
