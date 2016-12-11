@@ -82,11 +82,11 @@ var server = http.createServer(function(request, response) {
 
         var uuId = params.uuid;
         //console.log("web socket id post: "+JSON.stringify(clients[uuId]));
-        alert(uuid);
+        //alert(uuid);
 
         //console.log("web socket id post: "+JSON.stringify(clients[uuId]));
         var accessToken = params.access_token;
-        alert(accessToken);
+        //alert(accessToken);
 
         var msg = {'op':'authdone','accessToken':accessToken};
         console.log("web socket id post message: "+JSON.stringify(msg));
