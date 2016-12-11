@@ -10,7 +10,6 @@
 var http = require("http");
 var fs = require("fs");
 var path = require("path");
-var JSON = require("JSON")
 
 var ip = process.env.IP || '127.0.0.1'; //process.env.OPENSHIFT_NODEJS_IP ||
 var port1 = process.env.PORT || 3000;//process.env.OPENSHIFT_NODEJS_PORT ||
@@ -71,15 +70,19 @@ var server = http.createServer(function(request, response) {
         console.log("Recived Params: without parsing "+body);
         //var params = (typeof body == "object" ? body : JSON.parse(body));
         var params = JSON.parse(body);
-        //var params = jQuery.parseJSON(body)
+        var params1 = jQuery.parseJSON(body)
+        var params2 = body;
 
-        console.log("Recived Params: "+JSON.stringify(params));
-        console.log("params uuid alternate: "+JSON.stringify(params.uuid));
+        console.log("Recived Params: "+JSON.stringify(params1));
+        //console.log("Recived Params: "+JSON.stringify(params));
+        var usda= params1.uuid;
+        console.log("Recived Params: "+ params1.uuid);
+        console.log("params uuid alternate: "+param2.uuid);
         var uuId = params.uuid;
-        console.log("web socket id post: "+JSON.stringify(clients[uuId]));
+        //console.log("web socket id post: "+JSON.stringify(clients[uuId]));
 
 
-        console.log("web socket id post: "+JSON.stringify(clients[uuId]));
+        //console.log("web socket id post: "+JSON.stringify(clients[uuId]));
         var accessToken = params.access_token;
 
         var msg = {'op':'authdone','accessToken':accessToken};
