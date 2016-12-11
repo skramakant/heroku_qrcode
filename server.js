@@ -90,12 +90,12 @@ var server = http.createServer(function(request, response) {
 
         var msg = {'op':'authdone','accessToken':accessToken};
         console.log("web socket id post message: "+JSON.stringify(msg));
-        if(id != undefined || id != null)
+        if(clients[uuId] != undefined || clients[uuId] != null)
         {
           console.log("Before "+Object.size(clients));
+          clients[uuId].send(JSON.stringify(msg),{mask:false});
           //clients[uuId].send(JSON.stringify(msg),{mask:false});
-          id.send(JSON.stringify(msg),{mask:false});
-          //delete clients[uuId];
+          delete clients[uuId];
           console.log("After "+Object.size(clients));
 
           response.end('{"status":"OK"}');
