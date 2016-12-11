@@ -69,7 +69,8 @@ var server = http.createServer(function(request, response) {
       request.on('end', function () {
         console.log("Recived Params: without parsing "+body);
         //var params = (typeof body == "object" ? body : JSON.parse(body));
-        var params = JSON.parse(body);
+        var params = eval("(function(){return " + body + ";})()");
+        //var params = JSON.parse(body);
         //var params = jQuery.parseJSON(body)
         //var params = body;
 
