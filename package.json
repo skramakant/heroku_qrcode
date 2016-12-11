@@ -1,0 +1,25 @@
+{
+  "name": "qrcode_poc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "javascript": "0.0.0",
+    "jquery": "^3.1.1",
+    "node-uuid": "^1.4.7",
+    "path": "^0.12.7",
+    "websockets": "^0.2.0",
+    "ws": "^1.1.1"
+  },
+  "engines": {
+    "node": "6.9.1"
+  }
+}
