@@ -67,7 +67,9 @@ var server = http.createServer(function(request, response) {
       });
 
       request.on('end', function () {
-        var params = JSON.parse(body);
+
+        var params = (typeof body == "object" ? body : JSON.parse(body));
+        //var params = JSON.parse(body);
 
         console.log("params uuid alternate: "+JSON.stringify(params.uuid));
         var uuId = params.uuid;
