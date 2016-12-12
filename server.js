@@ -157,7 +157,7 @@ wss.on('connection', function connection(ws) {
     if(obj.op == 'hello')
     {
       uuidToken = uuid.v1();
-      clients.uuidToken = ws;
+      clients[uuidToken] = ws;
       globalSocket = ws;
       console.log("wen socket id+"+Object.size(clients));
       var hello = { op:'hello',token:uuidToken};
