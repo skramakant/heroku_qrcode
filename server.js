@@ -16,6 +16,7 @@ var port1 = process.env.PORT || 3000;//process.env.OPENSHIFT_NODEJS_PORT ||
 var port2      = 8081;
 
 var checkMimeType = true;
+var globalSocket;
 
 
 var server = http.createServer(function(request, response) {
@@ -74,12 +75,12 @@ var server = http.createServer(function(request, response) {
         var accessToken = params.access_token;
         var msg = {'op':'authdone','accessToken':accessToken};
         console.log("web socket id post message: "+JSON.stringify(msg));
-        if(clients[uuId.toString()] != undefined || clients[uuId.toString()] != null)
+        if(globalSocket != undefined || globalSocket != null)
         {
           console.log("Before "+Object.size(clients));
-          clients[uuId.toString()].send(JSON.stringify(msg),{mask:false});
+          globalSocket.send(JSON.stringify(msg),{mask:false});
           //clients[uuId].send(JSON.stringify(msg),{mask:false});
-          delete clients[uuId.toString()];
+          delete clients[uuId];
           console.log("After "+Object.size(clients));
 
           response.end('{"status":"OK"}');
@@ -156,14 +157,16 @@ wss.on('connection', function connection(ws) {
     if(obj.op == 'hello')
     {
       uuidToken = uuid.v1();
-      clients[uuidToken] = ws;
-      console.log("wen socket id+"+clients[uuidToken].toString());
+      clients.uuidToken = ws;
+      globalSocket = ws;
+      console.log("wen socket id+"+Object.size(clients));
       var hello = { op:'hello',token:uuidToken};
       ws.send(JSON.stringify(hello),{mask:false});
     }
     if(obj.op == 'ping'){
       console.log("ping ping");
       var ping = { op:'ping',token:uuidToken};
+      globalSocket = ws;
       ws.send(JSON.stringify(ping),{mask:false});
     }
 
