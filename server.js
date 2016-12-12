@@ -36,7 +36,8 @@ var server = http.createServer(function(request, response) {
             ".html":"text/html",
             ".css": "text/css",
             ".js" : "text/javascript",
-            ".gif": "image/gif"
+            ".gif": "image/gif",
+            ".jpg": "image/jpg"
           }
 
           var validMimeType = true;
