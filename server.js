@@ -159,7 +159,7 @@ wss.on('connection', function connection(ws) {
     {
       uuidToken = uuid.v1();
       clients[uuidToken] = ws;
-      console.log("Before "+Object.size(clients));
+      //console.log("Before "+Object.size(clients));
       //console.log("wen socket id+"+clients[uuidToken].toString());
       var hello = { op:'hello',token:uuidToken};
       ws.send(JSON.stringify(hello),{mask:false});
