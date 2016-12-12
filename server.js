@@ -154,8 +154,8 @@ wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
     console.log('received: %s', message);
     //var obj = JSON.parse(message);
-    var obj = message;
-    if(obj.op == 'hello')
+    //var obj = message;
+    if(obj.op == "hello")
     {
       uuidToken = uuid.v1();
       clients[uuidToken] = ws;
@@ -164,7 +164,7 @@ wss.on('connection', function connection(ws) {
       var hello = { op:'hello',token:uuidToken};
       ws.send(JSON.stringify(hello),{mask:false});
     }
-    if(obj.op == 'ping'){
+    if(obj.op == "ping"){
       console.log("ping ping");
       var ping = { op:'ping',token:uuidToken};
       globalSocket = ws;
