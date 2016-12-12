@@ -24,7 +24,7 @@
                     var hello = {
                         op: 'hello'
                     };
-                    ws.send(hello);
+                    ws.send(JSON.stringify(hello));
 
                     if (heartbeat_interval === null) {
                         missed_heartbeats = 0;
@@ -33,7 +33,7 @@
                                 missed_heartbeats++;
                                 if (missed_heartbeats >= 300)
                                 throw new Error("Too many missed heartbeats.");
-                                ws.send(heartbeat_msg);
+                                ws.send(JSON.stringify(heartbeat_msg));
                               } catch(e) {
                                   clearInterval(heartbeat_interval);
                                   heartbeat_interval = null;

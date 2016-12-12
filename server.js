@@ -10,13 +10,13 @@
 var http = require("http");
 var fs = require("fs");
 var path = require("path");
+var JSON = require("JSON");
 
 var ip = process.env.IP || '127.0.0.1'; //process.env.OPENSHIFT_NODEJS_IP ||
 var port1 = process.env.PORT || 3000;//process.env.OPENSHIFT_NODEJS_PORT ||
 var port2      = 8081;
 
 var checkMimeType = true;
-var globalSocket;
 
 
 var server = http.createServer(function(request, response) {
@@ -75,10 +75,10 @@ var server = http.createServer(function(request, response) {
         var accessToken = params.access_token;
         var msg = {'op':'authdone','accessToken':accessToken};
         console.log("web socket id post message: "+JSON.stringify(msg));
-        if(globalSocket != undefined || globalSocket != null)
+        if(clients[uuId] != undefined || clients[uuId] != null)
         {
           console.log("Before "+Object.size(clients));
-          globalSocket.send(JSON.stringify(msg),{mask:false});
+          clients[uuId].send(JSON.stringify(msg),{mask:false});
           //clients[uuId].send(JSON.stringify(msg),{mask:false});
           delete clients[uuId];
           console.log("After "+Object.size(clients));
@@ -153,24 +153,21 @@ wss.on('connection', function connection(ws) {
 
   ws.on('message', function incoming(message) {
     console.log('received: %s', message);
-    //var obj = JSON.parse(message);
-    //var obj = message;
-    if(obj.op == "hello")
+    var obj = JSON.parse(message);
+    if(obj.op == 'hello')
     {
       uuidToken = uuid.v1();
       clients[uuidToken] = ws;
-      globalSocket = ws;
-      console.log("wen socket id+"+Object.size(clients));
+      console.log("wen socket id+"+clients[uuidToken].toString());
       var hello = { op:'hello',token:uuidToken};
       ws.send(JSON.stringify(hello),{mask:false});
     }
-    if(obj.op == "ping"){
+    if(obj.op == 'ping'){
       console.log("ping ping");
       var ping = { op:'ping',token:uuidToken};
-      globalSocket = ws;
       ws.send(JSON.stringify(ping),{mask:false});
     }
-  console.log('received after parse: %s', message);
+
   });
 
 });
