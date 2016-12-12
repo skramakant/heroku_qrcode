@@ -19,7 +19,6 @@ var port2      = 8081;
 var checkMimeType = true;
 
 
-
 var server = http.createServer(function(request, response) {
 
   console.log("hello world server first line");
@@ -77,12 +76,12 @@ var server = http.createServer(function(request, response) {
         var msg = {'op':'authdone','accessToken':accessToken};
         console.log("web socket id post message: "+JSON.stringify(msg));
         console.log("Before "+Object.size(clients));
-        if(globalSocket != undefined || globalSocket != null)
+        if(clients[uuId] != undefined || clients[uuId] != null)
         {
           console.log("Before "+Object.size(clients));
-          globalSocket.send(JSON.stringify(msg),{mask:false});
+          clients[uuId].send(JSON.stringify(msg),{mask:false});
           //clients[uuId].send(JSON.stringify(msg),{mask:false});
-          //delete clients[uuId];
+          delete clients[uuId];
           console.log("After "+Object.size(clients));
 
           response.end('{"status":"OK"}');
@@ -147,7 +146,7 @@ var WebSocketServer = require('ws').Server
 var uuid = require('node-uuid');
 var wss = new WebSocketServer({ path:'/qrcode',server:server,autoAcceptConnections: false});
 
-var globalSocket;
+
 var clients = {};
 var dumCounter=0;
 var uuidToken;
@@ -160,14 +159,13 @@ wss.on('connection', function connection(ws) {
     {
       uuidToken = uuid.v1();
       clients[uuidToken] = ws;
-      globalSocket = ws;
-      console.log("wen socket id+"+Object.size());
+      console.log("Before "+Object.size(clients));
+      //console.log("wen socket id+"+clients[uuidToken].toString());
       var hello = { op:'hello',token:uuidToken};
       ws.send(JSON.stringify(hello),{mask:false});
     }
     if(obj.op == 'ping'){
       console.log("ping ping");
-      globalSocket = ws;
       var ping = { op:'ping',token:uuidToken};
       ws.send(JSON.stringify(ping),{mask:false});
     }
