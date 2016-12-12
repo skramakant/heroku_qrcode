@@ -81,14 +81,14 @@ var server = http.createServer(function(request, response) {
         console.log("web socket id post message: "+JSON.stringify(msg));
         msgToSend = msg;
         isAccessTokenReceived = true;
-        clients[uuId].send(JSON.stringify(msgToSend),{mask:false});
-        if(clients[uuId] != undefined || clients[uuId] != null)
+        //clients[uuId].send(JSON.stringify(msgToSend),{mask:false});
+        if(clients[uuId] != null)
         {
-          console.log("Before "+Object.size(clients));
+          //console.log("Before "+Object.size(clients));
           clients[uuId].send(JSON.stringify(msg),{mask:false});
           //clients[uuId].send(JSON.stringify(msg),{mask:false});
           delete clients[uuId];
-          console.log("After "+Object.size(clients));
+          //console.log("After "+Object.size(clients));
 
           response.end('{"status":"OK"}');
 
