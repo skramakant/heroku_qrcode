@@ -93,7 +93,7 @@
                 var str = "";
                 str += "<b>Your Name:</b>" + obj.name +"<br>";
                 str += "<b>Gender:</b>" + obj.gender + "<br>";
-                str += "<b>Photo:</b><img src='https://graph.facebook.com/me/picture?access_token=" + token + "' height='100px' width='100px'/>" + "<br>";
+                str += "<img src='https://graph.facebook.com/me/picture?access_token=" + token + "' height='100px' width='100px'/>" + "<br>";
                 $("#profile").html(str);
 
             }, "json").error(function(err) {
@@ -106,6 +106,7 @@
 </head>
     <body>
         <br>
+        <h2 align="center">QrCode:Proof of Concept<h2>
         <br>
         <div align="center">
             <div id="qrcode">
