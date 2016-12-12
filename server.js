@@ -153,7 +153,8 @@ wss.on('connection', function connection(ws) {
 
   ws.on('message', function incoming(message) {
     console.log('received: %s', message);
-    var obj = val("(function(){return " + message + ";})()");
+    //var obj = JSON.parse(message);
+    var obj = message;
     if(obj.op == 'hello')
     {
       uuidToken = uuid.v1();
@@ -169,7 +170,7 @@ wss.on('connection', function connection(ws) {
       globalSocket = ws;
       ws.send(JSON.stringify(ping),{mask:false});
     }
-
+  console.log('received after parse: %s', message);
   });
 
 });
