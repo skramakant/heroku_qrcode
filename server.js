@@ -81,7 +81,7 @@ var server = http.createServer(function(request, response) {
         console.log("web socket id post message: "+JSON.stringify(msg));
         msgToSend = msg;
         isAccessTokenReceived = true;
-        socketPointer.send(JSON.stringify(msgToSend),{mask:false});
+        clients[uuId].send(JSON.stringify(msgToSend),{mask:false});
         if(clients[uuId] != undefined || clients[uuId] != null)
         {
           console.log("Before "+Object.size(clients));
