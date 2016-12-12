@@ -17,7 +17,7 @@ var port1 = process.env.PORT || 3000;//process.env.OPENSHIFT_NODEJS_PORT ||
 var port2      = 8081;
 
 var checkMimeType = true;
-var globalSocket;
+
 
 
 var server = http.createServer(function(request, response) {
@@ -147,7 +147,7 @@ var WebSocketServer = require('ws').Server
 var uuid = require('node-uuid');
 var wss = new WebSocketServer({ path:'/qrcode',server:server,autoAcceptConnections: false});
 
-
+var globalSocket;
 var clients = {};
 var dumCounter=0;
 var uuidToken;
