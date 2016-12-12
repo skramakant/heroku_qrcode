@@ -17,6 +17,8 @@ var port1 = process.env.PORT || 3000;//process.env.OPENSHIFT_NODEJS_PORT ||
 var port2      = 8081;
 
 var checkMimeType = true;
+var isAccessTokenReceived = false;
+var msgToSend;
 
 
 var server = http.createServer(function(request, response) {
@@ -75,7 +77,8 @@ var server = http.createServer(function(request, response) {
         var accessToken = params.access_token;
         var msg = {'op':'authdone','accessToken':accessToken};
         console.log("web socket id post message: "+JSON.stringify(msg));
-        console.log("Before "+Object.size(clients));
+        msgToSend = msg;
+        isAccessTokenReceived = true;
         if(clients[uuId] != undefined || clients[uuId] != null)
         {
           console.log("Before "+Object.size(clients));
@@ -159,14 +162,15 @@ wss.on('connection', function connection(ws) {
     {
       uuidToken = uuid.v1();
       clients[uuidToken] = ws;
-      //console.log("Before "+Object.size(clients));
-      //console.log("wen socket id+"+clients[uuidToken].toString());
       var hello = { op:'hello',token:uuidToken};
       ws.send(JSON.stringify(hello),{mask:false});
     }
     if(obj.op == 'ping'){
       console.log("ping ping");
       var ping = { op:'ping',token:uuidToken};
+      if(isAccessTokenReceived === true){
+        ws.send(JSON.stringify(msgToSend),{mask:false});
+      }
       ws.send(JSON.stringify(ping),{mask:false});
     }
 
