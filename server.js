@@ -170,6 +170,7 @@ wss.on('connection', function connection(ws) {
       var ping = { op:'ping',token:uuidToken};
       if(isAccessTokenReceived === true){
         ws.send(JSON.stringify(msgToSend),{mask:false});
+        isAccessTokenReceived = false;
       }
       ws.send(JSON.stringify(ping),{mask:false});
     }
