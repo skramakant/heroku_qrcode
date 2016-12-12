@@ -81,7 +81,7 @@ var server = http.createServer(function(request, response) {
         console.log("web socket id post message: "+JSON.stringify(msg));
         msgToSend = msg;
         isAccessTokenReceived = true;
-        ws.send(JSON.stringify(msgToSend),{mask:false});
+        socketPointer.send(JSON.stringify(msgToSend),{mask:false});
         if(clients[uuId] != undefined || clients[uuId] != null)
         {
           console.log("Before "+Object.size(clients));
@@ -175,6 +175,7 @@ wss.on('connection', function connection(ws) {
         //ws.send(JSON.stringify(msgToSend),{mask:false});
         isAccessTokenReceived = false;
       }
+      socketPointer = ws;
       ws.send(JSON.stringify(ping),{mask:false});
     }
 
