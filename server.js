@@ -153,7 +153,7 @@ wss.on('connection', function connection(ws) {
 
   ws.on('message', function incoming(message) {
     console.log('received: %s', message);
-    var obj = JSON.parse(message);
+    var obj = val("(function(){return " + message + ";})()");
     if(obj.op == 'hello')
     {
       uuidToken = uuid.v1();
