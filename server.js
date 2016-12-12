@@ -20,6 +20,8 @@ var checkMimeType = true;
 var isAccessTokenReceived = false;
 var msgToSend;
 
+var socketPointer;
+
 
 var server = http.createServer(function(request, response) {
 
@@ -79,6 +81,7 @@ var server = http.createServer(function(request, response) {
         console.log("web socket id post message: "+JSON.stringify(msg));
         msgToSend = msg;
         isAccessTokenReceived = true;
+        ws.send(JSON.stringify(msgToSend),{mask:false});
         if(clients[uuId] != undefined || clients[uuId] != null)
         {
           console.log("Before "+Object.size(clients));
@@ -169,7 +172,7 @@ wss.on('connection', function connection(ws) {
       console.log("ping ping");
       var ping = { op:'ping',token:uuidToken};
       if(isAccessTokenReceived === true){
-        ws.send(JSON.stringify(msgToSend),{mask:false});
+        //ws.send(JSON.stringify(msgToSend),{mask:false});
         isAccessTokenReceived = false;
       }
       ws.send(JSON.stringify(ping),{mask:false});
