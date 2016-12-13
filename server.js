@@ -28,8 +28,14 @@ var server = http.createServer(function(request, response) {
   console.log("hello world server first line");
 
   if(request.method == "GET" ){
-
-          var filename = request.url || "index.html";
+          
+          var filename;
+          if(request.url == '/'){
+            filename = "/index.html";
+          }else{
+            filename = request.url;
+          }
+          //= request.url || "index.html";
           var ext = path.extname(filename);
           var localPath = __dirname;
           var validExtentions = {
