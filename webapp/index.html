@@ -99,7 +99,7 @@
                 var str = "";
                 str += "<b>Name: </b>" + obj.name +"<br>";
                 str += "<b>Gender: </b>" + obj.gender + "<br>" + "<br>";
-                str += "<img src='https://graph.facebook.com/me/picture?width=100&height=100&access_token=" + token + "' height='100px' width='100px'/>" + "<br>";
+                str += "<img src='https://graph.facebook.com/me/picture?width=200&height=200&access_token=" + token + "' height='200px' width='200px'/>" + "<br>";
                 $("#profile").html(str);
 
             }, "json").error(function(err) {
