@@ -2,8 +2,13 @@
 <html>
 
 <head>
-  <link rel="shortcut icon" href="">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- <link rel="shortcut icon" href=""> -->
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
     <script src="jquery.qrcode-0.11.0.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -105,21 +110,35 @@
     </script>
     <style>
     body{
-      background-image : url("Elegant1.jpg");
+      /*background-image : url("Elegant1.jpg");*/
+    }
+    #qrdiv{
+      background-color:#D8D8D8  ;
+      width:800px;
+      height:550px;
+      margin-left: 280px;
+      margin-top: 40px;
+      position:absolute;
+      z-index:100;
     }
     </style>
 </head>
     <body>
-        <br>
-        <h2 align="center">Welcome<h2>
-        <br>
-        <div align="center">
-            <div id="qrcode">
-              <img src='iconLoading.gif' />
-            </div>
-            <div id="profile"></div>
+        <div class="model" id="qrdiv">
+          <br>
+          <h2 align="center">QrCode Login<h2>
+            <h4 align="center">Use your phone to scan the code</h3>
+          <br>
+          <div align="center">
+              <div id="qrcode">
+                <img src='iconLoading.gif' />
+              </div>
+              <div id="profile"></div>
+          </div>
         </div>
-
+        <div class="container-fluid" style="height:25vh;background-color:#CC3D61"></div>
+        <div class="container-fluid" style="height:75vh;background-color:white ">
+        </div>
     </body>
 
 </html>
